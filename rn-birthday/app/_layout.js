@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { Stack } from "expo-router";
-import { View,Text,TextInput, Pressable,StyleSheet,KeyboardAvoidingView} from "react-native";
+import { View,Text,TextInput, Pressable,Image,StyleSheet,KeyboardAvoidingView, ScrollView} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
 export default function RootLayout() {
   const [readerName, setReaderName] = useState('');
   const [message, setMessage] = useState('');
+  const [image, setImage] = useState(null);
   const [submittedData, setSubmittedData] = useState(true);
   const [isEditable, setIsEditable] = useState(true);
 
   const handleSubmit = () => { 
-    setSubmittedData({ readerName, message });
+    setSubmittedData({ readerName, message,image });
     setIsEditable(false);
     
   };
@@ -20,11 +21,30 @@ export default function RootLayout() {
     setIsEditable(true);
   };
 
+  const pickImage = async () => {
+    let result = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (result.granted) {
+      let pickerResult = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+      });
+      if (!pickerResult.cancelled) {
+        setImage(pickerResult.uri);
+      }
+    }
+  };
+
+
   return (
     <SafeAreaView style={styles.container}> 
     <SafeAreaView style={styles.topContainer}>
    <Text style={styles.appName}>Create Your Card</Text>
     </SafeAreaView>
+
+    <KeyboardAvoidingView
+     behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+     style={styles.bottomContainer} >
+    
 
     <SafeAreaView style={styles.bottomContainer}>
     <SafeAreaView  style={styles.inputContainer}>
@@ -46,6 +66,14 @@ export default function RootLayout() {
             editable={isEditable}
           />
 
+
+    {/* <ScrollView>
+
+      <Image
+      style ={{height: 100, resizeMode: 'contain'}}
+      source = {require('@/assets/images')} />
+    </ScrollView> */}
+
 {isEditable ? (
             <Pressable style={styles.uploadButton} onPress={handleSubmit}>
               <Text style={styles.uploadButtonText}>Submit</Text>
@@ -59,11 +87,16 @@ export default function RootLayout() {
 
     </SafeAreaView>
 
+    </KeyboardAvoidingView>
+
     {submittedData && (
           <View style={styles.submittedDataContainer}>
             <Text style={styles.submittedLabel}>Submitted Data:</Text>
             <Text style={styles.submittedText}>Full Names: {submittedData.readerName}</Text>
             <Text style={styles.submittedText}>Message: {submittedData.message}</Text>
+            {submittedData.image && (
+            <Image source={{ uri: submittedData.image }} style={styles.submittedImage} />
+          )}
           </View>
         )}
       </SafeAreaView>
@@ -142,6 +175,12 @@ const styles = StyleSheet.create({
    }, 
    submittedText: {
    fontSize: 14,
+  },
+  submittedImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    marginTop: 10,
   },
   
 })
