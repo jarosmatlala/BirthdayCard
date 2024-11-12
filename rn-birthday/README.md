@@ -1,6 +1,30 @@
 # Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Clone Repository
+
+```bash
+git clone https://github.com/jarosmatlala/BirthdayCard.git
+```
+
+## Navigate Into Directory
+
+```bash 
+cd BirthdayCard
+```
+
+## Install Dependencies 
+
+``` bash
+npm install -g eas-cli
+```
+
+## Log In
+
+``` bash
+eas login
+```
+
+
 
 ## Get started
 
