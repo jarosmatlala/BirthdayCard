@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { Stack } from "expo-router";
-import { View,Text,TextInput, Pressable,Image,StyleSheet,KeyboardAvoidingView, ScrollView} from "react-native";
+import { Platform,View,Text,TextInput, Pressable,Image,StyleSheet,KeyboardAvoidingView, ScrollView} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as ImagePicker from 'expo-image-picker';
 
 
 export default function RootLayout() {
@@ -20,19 +21,7 @@ export default function RootLayout() {
   const handleEdit = () => {
     setIsEditable(true);
   };
-
-  const pickImage = async () => {
-    let result = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (result.granted) {
-      let pickerResult = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        quality: 1,
-      });
-      if (!pickerResult.cancelled) {
-        setImage(pickerResult.uri);
-      }
-    }
-  };
+  const pickImage = async () => { const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync(); if (granted) { const { cancelled, uri } = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images, quality: 1, }); if (!cancelled) { setImage(uri); } } };
 
 
   return (
@@ -42,9 +31,10 @@ export default function RootLayout() {
     </SafeAreaView>
 
     <KeyboardAvoidingView
-     behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
-     style={styles.bottomContainer} >
-    
+  behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+  style={styles.bottomContainer}
+>
+
 
     <SafeAreaView style={styles.bottomContainer}>
     <SafeAreaView  style={styles.inputContainer}>
@@ -65,14 +55,12 @@ export default function RootLayout() {
             multiline
             editable={isEditable}
           />
+<Pressable style={styles.uploadButton} onPress={pickImage}>
+  <Text style={styles.uploadButtonText}>Upload An Image</Text>
+</Pressable>
 
+{image && <Image source={{ uri: image }} style={styles.selectedImage} />}
 
-    {/* <ScrollView>
-
-      <Image
-      style ={{height: 100, resizeMode: 'contain'}}
-      source = {require('@/assets/images')} />
-    </ScrollView> */}
 
 {isEditable ? (
             <Pressable style={styles.uploadButton} onPress={handleSubmit}>
