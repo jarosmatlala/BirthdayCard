@@ -7,49 +7,66 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function RootLayout() {
   const [readerName, setReaderName] = useState('');
   const [message, setMessage] = useState('');
+  const [submittedData, setSubmittedData] = useState(true);
+  const [isEditable, setIsEditable] = useState(true);
 
+  const handleSubmit = () => { 
+    setSubmittedData({ readerName, message });
+    setIsEditable(false);
+    
+  };
 
-
+  const handleEdit = () => {
+    setIsEditable(true);
+  };
 
   return (
     <SafeAreaView style={styles.container}> 
-  {/* <KeyboardAvoidingView> */}
-
     <SafeAreaView style={styles.topContainer}>
    <Text style={styles.appName}>Create Your Card</Text>
-{/* <Pressable onPress={() => {console.log('button pressed')}}>
-  <Text>Submit</Text>
-</Pressable> */}
     </SafeAreaView>
 
     <SafeAreaView style={styles.bottomContainer}>
     <SafeAreaView  style={styles.inputContainer}>
     <Text style={styles.label}>Full Names</Text>
     <TextInput 
-    placeholder="Name of Receiver" 
-    style={styles.TextInput}  placeholderTextColor={'#747474'} 
-    value={readerName}
-    onChangeText={setReaderName}/>
+    style={styles.TextInput}
+    placeholderTextColor={'#717171'} 
+    value={readerName} 
+    onChangeText={setReaderName}
+    editable={isEditable} 
+    />
 
 <TextInput
             style={styles.messageInput}
+            placeholder="Message for the Reader"
             value={message}
             onChangeText={setMessage}
             multiline
+            editable={isEditable}
           />
 
-<Pressable style={styles.uploadButton} onPress={() => {console.log('button pressed')}}>
-  <Text>Submit</Text>
-</Pressable>
+{isEditable ? (
+            <Pressable style={styles.uploadButton} onPress={handleSubmit}>
+              <Text style={styles.uploadButtonText}>Submit</Text>
+            </Pressable>
+          ) : (
+            <Pressable style={styles.uploadButton} onPress={handleEdit}>
+              <Text style={styles.uploadButtonText}>Edit</Text>
+            </Pressable>
+          )}
+        </SafeAreaView>
 
     </SafeAreaView>
-    </SafeAreaView>
-    {/* </KeyboardAvoidingView> */}
-    </SafeAreaView>
 
-
-
-
+    {submittedData && (
+          <View style={styles.submittedDataContainer}>
+            <Text style={styles.submittedLabel}>Submitted Data:</Text>
+            <Text style={styles.submittedText}>Full Names: {submittedData.readerName}</Text>
+            <Text style={styles.submittedText}>Message: {submittedData.message}</Text>
+          </View>
+        )}
+      </SafeAreaView>
   );
 }
 
@@ -111,6 +128,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 10, 
-  }
+  },
+  uploadButtonText: {
+    color: '#FFF', 
+    fontWeight: 'bold', 
+  },
+   submittedDataContainer: {
+   marginTop: 20,
+   }, 
+   submittedLabel: { 
+   fontWeight: 'bold',
+   fontSize: 16,
+   }, 
+   submittedText: {
+   fontSize: 14,
+  },
   
 })
