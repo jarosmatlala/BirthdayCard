@@ -1,50 +1,67 @@
-# Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# BIRTHDAY CARD REACT NATIVE APPLICATION
 
-## Get started
+- The Objective of this application is to introduce the basics and termonology of React Native , by creating a birthday application using React Native
 
-1. Install dependencies
+## FEATURES
 
-   ```bash
-   npm install
-   ```
+- Application Aesthetically pleasing (Must include decorations)
+- Application to be interactive and allow users to customize the cards
+- Card content to be editable ( Message & Text) 
+- Capture User Interactions
 
-2. Start the app
+## Setup and Installation
 
-   ```bash
-    npx expo start
-   ```
+### Installation 
 
-In the output, you'll find options to open the app in a
+1. **Clone the repository in the terminal:**
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+```
+https://github.com/jarosmatlala/Task-22---React-Native-Birthday-Card.git
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. **Change Directory:**
 
-## Learn more
+```
+cd Task-22---React-Native-Birthday-Card
+``` 
 
-To learn more about developing your project with Expo, look at the following resources:
+3. **Install Dependencies:**
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+npm install
+```
 
-## Join the community
+4. **Change branch to Dev:**
+```
+git checkout Dev
+```
 
-Join our community of developers creating universal apps.
+5. **Start The Application:**
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+5.1. **Start The Server:**
+
+```
+npm start
+```
+
+5.2 **View Selection.:**
+
+- To run using the web , please press the following after running the server
+
+```
+w
+```
+
+- To run using android , please scan the Qr code or  press the followin after running the Serve
+
+```
+a
+```
+
+
+
+
+
+
